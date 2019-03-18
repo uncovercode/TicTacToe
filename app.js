@@ -82,9 +82,3 @@ io.on("connection", function (socket) {
           if (callback) callback();
      });
 });
-
-/*
-
-
-
-*/
