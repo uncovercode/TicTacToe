@@ -1,0 +1,45 @@
+#canvas {
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+#result {
+  color: #fff;
+  display: block;
+  font-size: 34px;
+  margin: 50px auto;
+  text-align: center;
+  text-transform: uppercase;
+  width: 400px;
+}
+
+.btn-game {
+  background: #2c343e;
+  border: 5px solid #2c343e;
+  border-radius: 45px;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 19px;
+  font-weight: 700;
+  margin: 13px auto;
+  outline: none;
+  padding: 11px 30px;
+  text-transform: uppercase;
+  width: 226px;
+}
+
+.btn-game:hover {
+  background: #363f4a;
+}
+
+a {
+  color: #00B7FF;
+}
+
+body {
+  background: #3d4550;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 50px;
+}

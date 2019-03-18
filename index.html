@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Jogo da Velha</title>
+  <link type="text/css" rel='stylesheet' href='/css/style.css' />
+</head>
+
+<body>
+
+  <canvas id="canvas"></canvas>
+  <div id="result"></div>
+  <button id="btn-newgame" class="btn-game">Novo Jogo</button>
+  <button id="btn-scoreboard" class="btn-game">Placar</button>
+  <button id="btn-reset-scoreboard" class="btn-game">Zerar Placar</button>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script src="/js/game.js"></script>
+  <script>
+    var game = new TicTacToe();
+
+    var socket = io.connect();
+
+    //-------------------------------------------------------
+
+    $("#canvas").on("click", function () {
+      socket.emit("nova jogada", game.newPlay());
+    });
+
+    socket.on("nova jogada", function (params) {
+      game.renderSymbol(params.row, params.col);
+
+      if (game.status == "vitoria") {
+        socket.emit("vitoria", {
+          name: game.currentPlayer.name,
+          points: 10
+        });
+      }
+
+      if (game.status != "empate") {
+        game.changePlayer();
+      }
+
+    });
+
+    // -------------------------------------------------------
+
+    $("#btn-newgame").on("click", function () {
+      socket.emit("novo jogo");
+    });
+
+    socket.on("novo jogo", function (params) {
+      game.newGame();
+    });
+
+    //-------------------------------------------------------
+
+    $("#btn-scoreboard").on("click", function () {
+      socket.emit("exibir placar");
+    });
+
+    socket.on("exibir placar", function (score) {
+      game.showScoreboard(score);
+    });
+
+    //-------------------------------------------------------
+
+    $("#btn-reset-scoreboard").on("click", function () {
+      socket.emit("zerar placar");
+    });
+
+    socket.on("zerar placar", function (score) {
+      game.showScoreboard(null);
+    });
+
+  </script>
+</body>
+
+</html>
